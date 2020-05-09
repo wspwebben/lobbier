@@ -20,7 +20,7 @@ httpServer.listen(PORT, () => {
 
 const io = socketio(httpServer);
 
-const lobbier = require('./lobby/lobbier.js')
+const lobbier = require('./server/lobbier.js')
 
 io.sockets.on('connection', socket => {
   lobbier(io, socket);

@@ -1,4 +1,4 @@
-const EVENTS = require('./events.js');
+const EVENTS = require('../common/events.js');
 const getRoomId = require('./createRoomGenerator.js')();
 
 function createRoom({ name }) {

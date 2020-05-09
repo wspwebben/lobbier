@@ -1,4 +1,4 @@
-const EVENTS = require('./events.js');
+const EVENTS = require('../common/events.js');
 
 function joinRoom(io) {
 
