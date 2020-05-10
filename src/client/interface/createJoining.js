@@ -3,40 +3,45 @@ import clearElement from '../helpers/clearElement';
 
 import createMenu from './createMenu';
 
-import createRoom from '../api/createRoom';
+import joinRoom from '../api/joinRoom';
 
-function onCreating(nameInput, roomOutput) {
+function onJoining(nameInput, roomInput) {
 
   return () => {
     const name = nameInput.value.trim();
+    const room = roomInput.value;
 
     if (!name) {
       console.log('Error: Name cannot be empty');
       return;
     }
 
-    createRoom(name);
+    if (!room) {
+      console.log('Error: Room isn\'t specified');
+      return
+    }
+
+    joinRoom(name, room);
   }
 }
 
-function createHost(gameContainer) {
+function createJoining(gameContainer) {
   const fragment = document.createDocumentFragment();
 
   const nameInput = document.createElement('input');
   nameInput.classList.add('input');
   nameInput.placeholder = 'Имя пользователя';
 
-  const roomOutput = document.createElement('input');
-  roomOutput.classList.add('input');
-  roomOutput.placeholder = 'Номер комнаты';
-  roomOutput.disabled = true;
+  const roomInput = document.createElement('input');
+  roomInput.classList.add('input');
+  roomInput.placeholder = 'Номер комнаты';
 
-  const createListener = onCreating(nameInput, roomOutput);
-  const buttonCreate = createButton('Создать комнату');
-  buttonCreate.addEventListener('click', createListener);
+  const joinListener = onJoining(nameInput, roomInput);
+  const buttonJoin = createButton('Присоединиться');
+  buttonJoin.addEventListener('click', joinListener);
 
   const back = () => {
-    buttonCreate.removeEventListener('click', createListener);
+    buttonJoin.removeEventListener('click', joinListener);
     createMenu(
       clearElement(gameContainer)
     );
@@ -46,10 +51,10 @@ function createHost(gameContainer) {
 
   fragment.appendChild(buttonBack);
   fragment.appendChild(nameInput);
-  fragment.appendChild(roomOutput);
-  fragment.appendChild(buttonCreate);
+  fragment.appendChild(roomInput);
+  fragment.appendChild(buttonJoin);
 
   return fragment;
 }
 
-export default createHost;
+export default createJoining;
