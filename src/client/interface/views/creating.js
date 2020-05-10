@@ -1,8 +1,6 @@
 import createButton from '../../helpers/createButton';
 import update from '../update';
 
-import { createMenu } from '../index';
-
 import createRoom from '../../api/createRoom';
 
 function onCreating(nameInput, roomOutput, button) {
@@ -27,7 +25,7 @@ function onCreating(nameInput, roomOutput, button) {
   }
 }
 
-function createHost(gameContainer) {
+function createHost(gameContainer, previousView) {
   const updateInterface = update(gameContainer);
 
   const fragment = document.createDocumentFragment();
@@ -49,7 +47,7 @@ function createHost(gameContainer) {
     // TODO: destroy room
     buttonCreate.removeEventListener('click', createListener);
     updateInterface(
-      createMenu(gameContainer)
+      previousView(gameContainer)
     );
   }
   const buttonBack = createButton('Назад');

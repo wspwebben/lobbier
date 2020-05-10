@@ -1,7 +1,8 @@
 import createButton from '../../helpers/createButton';
 import update from '../update';
 
-import { createHost, createJoining } from '../index';
+import createHost from './creating';
+import createJoining from './joining';
 
 function createMenu(gameContainer) {
   const updateInterface = update(gameContainer);
@@ -10,14 +11,14 @@ function createMenu(gameContainer) {
   const buttonCreate = createButton('Создать комнату');
   buttonCreate.addEventListener('click', () => {
     updateInterface(
-      createHost(gameContainer)
+      createHost(gameContainer, createMenu)
     );
   })
   
   const buttonJoin = createButton('Присоединиться к комнате');
   buttonJoin.addEventListener('click', () => {
     updateInterface(
-      createJoining(gameContainer)
+      createJoining(gameContainer, createMenu)
     );
   })
 

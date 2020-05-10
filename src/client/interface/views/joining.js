@@ -1,8 +1,6 @@
 import createButton from '../../helpers/createButton';
 import update from '../update';
 
-import { createMenu } from '../index';
-
 import joinRoom from '../../api/joinRoom';
 
 function onJoining(nameInput, roomInput, button) {
@@ -33,7 +31,7 @@ function onJoining(nameInput, roomInput, button) {
   }
 }
 
-function createJoining(gameContainer) {
+function createJoining(gameContainer, previousView) {
   const updateInterface = update(gameContainer);
 
   const fragment = document.createDocumentFragment();
@@ -53,7 +51,7 @@ function createJoining(gameContainer) {
   const back = () => {
     buttonJoin.removeEventListener('click', joinListener);
     updateInterface(
-      createMenu(gameContainer)
+      previousView(gameContainer)
     );
   }
   const buttonBack = createButton('Назад');
