@@ -44,8 +44,8 @@ function createJoining(gameContainer, previousView) {
   roomInput.classList.add('input');
   roomInput.placeholder = 'Номер комнаты';
 
-  const joinListener = onJoining(nameInput, roomInput);
   const buttonJoin = createButton('Присоединиться');
+  const joinListener = onJoining(nameInput, roomInput, buttonJoin);
   buttonJoin.addEventListener('click', joinListener);
 
   const back = () => {

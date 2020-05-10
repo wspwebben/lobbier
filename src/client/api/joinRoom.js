@@ -9,24 +9,27 @@ function joinRoom(name, roomId) {
   return new Promise((resolve, reject) => {
     let cancelTimeout = null;
 
-    const onJoined = (data) => {
-      // console.log(`Room id is ${roomId}, socket: ${socketId}`);
-      console.log(data);
-
+    const onJoined = ({ name }) => {
       if (cancelTimeout) {
         clearTimeout(cancelTimeout)
         cancelTimeout = null
       }
 
-      // resolve(roomId);
+      resolve(name)
+    }
+
+    const onNoRoom = () => {
+      reject();
     }
 
     const cancelCreation = () => {
-      socket.off(onJoined);
+      socket.off(EVENTS.ROOM.JOINED, onJoined);
+      socket.off(EVENTS.ERROR.NO_ROOM, onNoRoom)
       reject();
     }
 
     socket.once(EVENTS.ROOM.JOINED, onJoined)
+    socket.once(EVENTS.ERROR.NO_ROOM, onNoRoom);
     socket.emit(EVENTS.ROOM.JOIN, {
       name,
       id: roomId,

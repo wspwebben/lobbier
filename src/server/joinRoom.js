@@ -13,7 +13,9 @@ function joinRoom(io) {
     }
     
     socket.join(id);
-    io.to(id).emit(EVENTS.ROOM.JOINED, name)
+    io.to(id).emit(EVENTS.ROOM.JOINED, {
+      name,
+    });
   }
 }
 
