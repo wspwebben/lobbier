@@ -5,7 +5,7 @@ import createMenu from './createMenu';
 
 import joinRoom from '../api/joinRoom';
 
-function onJoining(nameInput, roomInput) {
+function onJoining(nameInput, roomInput, button) {
 
   return () => {
     const name = nameInput.value.trim();
@@ -21,7 +21,15 @@ function onJoining(nameInput, roomInput) {
       return
     }
 
-    joinRoom(name, room);
+    button.disabled = true;
+    joinRoom(name, room)
+      .then(name => {
+        console.log(`${name} joined the room`);
+        button.style.display = 'none';
+      })
+      .catch(() => {
+        button.disabled = false;
+      });
   }
 }
 

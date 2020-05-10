@@ -5,7 +5,7 @@ import createMenu from './createMenu';
 
 import createRoom from '../api/createRoom';
 
-function onCreating(nameInput, roomOutput) {
+function onCreating(nameInput, roomOutput, button) {
 
   return () => {
     const name = nameInput.value.trim();
@@ -15,7 +15,15 @@ function onCreating(nameInput, roomOutput) {
       return;
     }
 
-    createRoom(name);
+    button.disabled = true;
+    createRoom(name)
+      .then((roomId) => {
+        roomOutput.value = roomId;
+        button.style.display = 'none';
+      })
+      .catch(() => {
+        button.disabled = false;
+      })
   }
 }
 
@@ -31,11 +39,12 @@ function createHost(gameContainer) {
   roomOutput.placeholder = 'Номер комнаты';
   roomOutput.disabled = true;
 
-  const createListener = onCreating(nameInput, roomOutput);
   const buttonCreate = createButton('Создать комнату');
+  const createListener = onCreating(nameInput, roomOutput, buttonCreate);
   buttonCreate.addEventListener('click', createListener);
 
   const back = () => {
+    // TODO: destroy room
     buttonCreate.removeEventListener('click', createListener);
     createMenu(
       clearElement(gameContainer)
