@@ -1,8 +1,7 @@
 import createButton from '../helpers/createButton';
 import clearElement from '../helpers/clearElement';
 
-import createHost from './createHost';
-import createJoining from './createJoining';
+import { createHost, createJoining } from './index';
 
 function createMenu(gameContainer) {
   const fragment = document.createDocumentFragment();

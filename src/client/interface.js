@@ -1,4 +1,4 @@
-import createMenu from './interface/createMenu';
+import { createMenu } from './interface/index';
 
 function createInterface(root) {
   const gameContainer = document.createElement('div');

@@ -17,6 +17,28 @@
     return element;
   };
 
+  function createMenu(gameContainer) {
+    const fragment = document.createDocumentFragment();
+    const buttonCreate = createButton('Создать комнату');
+    buttonCreate.addEventListener('click', () => {
+      const createInterface = createHost(gameContainer);
+      clearElement(gameContainer).appendChild(createInterface);
+    });
+    
+    const buttonJoin = createButton('Присоединиться к комнате');
+    buttonJoin.addEventListener('click', () => {
+      const joinInterface = createJoining(gameContainer);
+      clearElement(gameContainer).appendChild(joinInterface);
+    });
+
+
+    fragment.appendChild(buttonCreate);
+    fragment.appendChild(buttonJoin);
+
+    gameContainer.appendChild(fragment);
+    return gameContainer;
+  }
+
   const socket = io();
 
   const EVENTS = {
@@ -217,28 +239,6 @@
     fragment.appendChild(buttonJoin);
 
     return fragment;
-  }
-
-  function createMenu(gameContainer) {
-    const fragment = document.createDocumentFragment();
-    const buttonCreate = createButton('Создать комнату');
-    buttonCreate.addEventListener('click', () => {
-      const createInterface = createHost(gameContainer);
-      clearElement(gameContainer).appendChild(createInterface);
-    });
-    
-    const buttonJoin = createButton('Присоединиться к комнате');
-    buttonJoin.addEventListener('click', () => {
-      const joinInterface = createJoining(gameContainer);
-      clearElement(gameContainer).appendChild(joinInterface);
-    });
-
-
-    fragment.appendChild(buttonCreate);
-    fragment.appendChild(buttonJoin);
-
-    gameContainer.appendChild(fragment);
-    return gameContainer;
   }
 
   function createInterface(root) {

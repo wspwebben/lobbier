@@ -1,7 +1,7 @@
 import createButton from '../helpers/createButton';
 import clearElement from '../helpers/clearElement';
 
-import createMenu from './createMenu';
+import { createMenu } from './index';
 
 import joinRoom from '../api/joinRoom';
 
