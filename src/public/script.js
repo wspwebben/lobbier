@@ -17,26 +17,35 @@
     return element;
   };
 
+  function updateInterface(gameContainer) {
+
+    return function(newInterface) {
+      clearElement(gameContainer).appendChild(newInterface);
+    }
+  }
+
   function createMenu(gameContainer) {
+    const updateInterface$1 = updateInterface(gameContainer);
+
     const fragment = document.createDocumentFragment();
     const buttonCreate = createButton('Создать комнату');
     buttonCreate.addEventListener('click', () => {
-      const createInterface = createHost(gameContainer);
-      clearElement(gameContainer).appendChild(createInterface);
+      updateInterface$1(
+        createHost(gameContainer)
+      );
     });
     
     const buttonJoin = createButton('Присоединиться к комнате');
     buttonJoin.addEventListener('click', () => {
-      const joinInterface = createJoining(gameContainer);
-      clearElement(gameContainer).appendChild(joinInterface);
+      updateInterface$1(
+        createJoining(gameContainer)
+      );
     });
-
 
     fragment.appendChild(buttonCreate);
     fragment.appendChild(buttonJoin);
 
-    gameContainer.appendChild(fragment);
-    return gameContainer;
+    return fragment;
   }
 
   const socket = io();
@@ -116,6 +125,8 @@
   }
 
   function createHost(gameContainer) {
+    const updateInterface$1 = updateInterface(gameContainer);
+
     const fragment = document.createDocumentFragment();
 
     const nameInput = document.createElement('input');
@@ -134,8 +145,8 @@
     const back = () => {
       // TODO: destroy room
       buttonCreate.removeEventListener('click', createListener);
-      createMenu(
-        clearElement(gameContainer)
+      updateInterface$1(
+        createMenu(gameContainer)
       );
     };
     const buttonBack = createButton('Назад');
@@ -210,6 +221,8 @@
   }
 
   function createJoining(gameContainer) {
+    const updateInterface$1 = updateInterface(gameContainer);
+
     const fragment = document.createDocumentFragment();
 
     const nameInput = document.createElement('input');
@@ -226,8 +239,8 @@
 
     const back = () => {
       buttonJoin.removeEventListener('click', joinListener);
-      createMenu(
-        clearElement(gameContainer)
+      updateInterface$1(
+        createMenu(gameContainer)
       );
     };
     const buttonBack = createButton('Назад');
@@ -245,8 +258,11 @@
     const gameContainer = document.createElement('div');
     gameContainer.classList.add('container');
 
-    const menu = createMenu(gameContainer);
-    root.appendChild(menu);
+    const updateInterface$1 = updateInterface(gameContainer);
+    updateInterface$1(
+      createMenu(gameContainer)
+    );
+    root.appendChild(gameContainer);
   }
 
   const root = document.querySelector('#app');

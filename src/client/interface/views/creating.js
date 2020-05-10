@@ -1,9 +1,9 @@
-import createButton from '../helpers/createButton';
-import clearElement from '../helpers/clearElement';
+import createButton from '../../helpers/createButton';
+import update from '../update';
 
-import { createMenu } from './index';
+import { createMenu } from '../index';
 
-import createRoom from '../api/createRoom';
+import createRoom from '../../api/createRoom';
 
 function onCreating(nameInput, roomOutput, button) {
 
@@ -28,6 +28,8 @@ function onCreating(nameInput, roomOutput, button) {
 }
 
 function createHost(gameContainer) {
+  const updateInterface = update(gameContainer);
+
   const fragment = document.createDocumentFragment();
 
   const nameInput = document.createElement('input');
@@ -46,8 +48,8 @@ function createHost(gameContainer) {
   const back = () => {
     // TODO: destroy room
     buttonCreate.removeEventListener('click', createListener);
-    createMenu(
-      clearElement(gameContainer)
+    updateInterface(
+      createMenu(gameContainer)
     );
   }
   const buttonBack = createButton('Назад');

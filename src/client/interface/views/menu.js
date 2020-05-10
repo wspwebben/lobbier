@@ -1,28 +1,30 @@
-import createButton from '../helpers/createButton';
-import clearElement from '../helpers/clearElement';
+import createButton from '../../helpers/createButton';
+import update from '../update';
 
-import { createHost, createJoining } from './index';
+import { createHost, createJoining } from '../index';
 
 function createMenu(gameContainer) {
+  const updateInterface = update(gameContainer);
+
   const fragment = document.createDocumentFragment();
   const buttonCreate = createButton('Создать комнату');
   buttonCreate.addEventListener('click', () => {
-    const createInterface = createHost(gameContainer);
-    clearElement(gameContainer).appendChild(createInterface);
+    updateInterface(
+      createHost(gameContainer)
+    );
   })
   
   const buttonJoin = createButton('Присоединиться к комнате');
   buttonJoin.addEventListener('click', () => {
-    const joinInterface = createJoining(gameContainer);
-    clearElement(gameContainer).appendChild(joinInterface);
+    updateInterface(
+      createJoining(gameContainer)
+    );
   })
-
 
   fragment.appendChild(buttonCreate);
   fragment.appendChild(buttonJoin);
 
-  gameContainer.appendChild(fragment);
-  return gameContainer;
+  return fragment;
 }
 
 export default createMenu;

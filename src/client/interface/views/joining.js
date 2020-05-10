@@ -1,9 +1,9 @@
-import createButton from '../helpers/createButton';
-import clearElement from '../helpers/clearElement';
+import createButton from '../../helpers/createButton';
+import update from '../update';
 
-import { createMenu } from './index';
+import { createMenu } from '../index';
 
-import joinRoom from '../api/joinRoom';
+import joinRoom from '../../api/joinRoom';
 
 function onJoining(nameInput, roomInput, button) {
 
@@ -34,6 +34,8 @@ function onJoining(nameInput, roomInput, button) {
 }
 
 function createJoining(gameContainer) {
+  const updateInterface = update(gameContainer);
+
   const fragment = document.createDocumentFragment();
 
   const nameInput = document.createElement('input');
@@ -50,8 +52,8 @@ function createJoining(gameContainer) {
 
   const back = () => {
     buttonJoin.removeEventListener('click', joinListener);
-    createMenu(
-      clearElement(gameContainer)
+    updateInterface(
+      createMenu(gameContainer)
     );
   }
   const buttonBack = createButton('Назад');

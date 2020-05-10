@@ -1,3 +1,3 @@
-export { default as createMenu } from './menu';
-export { default as createHost } from './creating';
-export { default as createJoining } from './joining';
+export { default as createMenu } from './views/menu';
+export { default as createHost } from './views/creating';
+export { default as createJoining } from './views/joining';
