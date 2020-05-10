@@ -23,6 +23,7 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
     "nodemon": "^2.0.3",
     "rollup": "^2.8.2"
   }

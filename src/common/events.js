@@ -1,4 +1,4 @@
-module.exports = {
+const EVENTS = {
   ROOM: {
     CREATE: 'room.create',
     CREATED: 'room.created',
@@ -11,3 +11,5 @@ module.exports = {
     NO_ROOM: 'error.no-room'
   }
 }
+
+module.exports = EVENTS;
