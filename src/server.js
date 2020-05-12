@@ -15,7 +15,7 @@ const PORT = 3000
 
 const httpServer = http.createServer(app)
 httpServer.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Open in browser: http://localhost:${PORT}`);
 })
 
 const io = socketio(httpServer);
