@@ -50,6 +50,12 @@ body {
   color: #000;
 }
 
+.button:disabled {
+  background-color: #eee;
+  border-color: #aaa;
+  color: #444;  
+}
+
 .input {
   border: 1px solid #000;
 }
