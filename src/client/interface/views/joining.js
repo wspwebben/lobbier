@@ -3,64 +3,77 @@ import update from '../update';
 
 import joinRoom from '../../api/joinRoom';
 
-function onJoining(nameInput, roomInput, button) {
+import createMenu from './menu';
+import createWatingRoom from './waiting';
 
-  return () => {
+function createJoining(gameContainer) {
+  const updateInterface = update(gameContainer, clear);
+
+  const fragment = document.createDocumentFragment();
+
+  let nameInput = document.createElement('input');
+  nameInput.classList.add('input');
+  nameInput.placeholder = 'Имя пользователя';
+
+  let roomInput = document.createElement('input');
+  roomInput.classList.add('input');
+  roomInput.placeholder = 'Номер комнаты';
+
+  let buttonJoin = createButton('Присоединиться');
+  const joinListener = () => {
     const name = nameInput.value.trim();
-    const room = roomInput.value;
+    const roomId = roomInput.value;
 
     if (!name) {
       console.log('Error: Name cannot be empty');
       return;
     }
 
-    if (!room) {
+    if (!roomId) {
       console.log('Error: Room isn\'t specified');
       return
     }
 
-    button.disabled = true;
-    joinRoom(name, room)
+    buttonJoin.disabled = true;
+    joinRoom(name, roomId)
       .then(name => {
         console.log(`${name} joined the room`);
-        button.style.display = 'none';
+
+        updateInterface(
+          createWatingRoom(gameContainer, {
+            roomId,
+            name,
+          })
+        );
       })
       .catch(() => {
-        button.disabled = false;
+        buttonJoin.disabled = false;
       });
   }
-}
-
-function createJoining(gameContainer, previousView) {
-  const updateInterface = update(gameContainer);
-
-  const fragment = document.createDocumentFragment();
-
-  const nameInput = document.createElement('input');
-  nameInput.classList.add('input');
-  nameInput.placeholder = 'Имя пользователя';
-
-  const roomInput = document.createElement('input');
-  roomInput.classList.add('input');
-  roomInput.placeholder = 'Номер комнаты';
-
-  const buttonJoin = createButton('Присоединиться');
-  const joinListener = onJoining(nameInput, roomInput, buttonJoin);
   buttonJoin.addEventListener('click', joinListener);
 
   const back = () => {
-    buttonJoin.removeEventListener('click', joinListener);
     updateInterface(
-      previousView(gameContainer)
+      createMenu(gameContainer)
     );
   }
-  const buttonBack = createButton('Назад');
+  let buttonBack = createButton('Назад');
   buttonBack.addEventListener('click', back);
 
   fragment.appendChild(buttonBack);
   fragment.appendChild(nameInput);
   fragment.appendChild(roomInput);
   fragment.appendChild(buttonJoin);
+  
+  function clear() {
+    buttonJoin.removeEventListener('click', joinListener);
+    buttonBack.removeEventListener('click', back);
+
+    buttonBack = null;
+    nameInput = null;
+    roomInput = null;
+    buttonJoin = null;
+  }
 
   return fragment;
 }

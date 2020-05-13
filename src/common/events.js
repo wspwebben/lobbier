@@ -5,6 +5,9 @@ const EVENTS = {
 
     JOIN: 'room.join',
     JOINED: 'room.joined',
+
+    LEAVE: 'room.leave',
+    LEFT: 'room.left',
   },
 
   ERROR: {

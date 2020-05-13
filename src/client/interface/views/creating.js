@@ -3,30 +3,11 @@ import update from '../update';
 
 import createRoom from '../../api/createRoom';
 
-function onCreating(nameInput, roomOutput, button) {
+import createMenu from './menu';
+import createWatingRoom from './waiting';
 
-  return () => {
-    const name = nameInput.value.trim();
-
-    if (!name) {
-      console.log('Error: Name cannot be empty');
-      return;
-    }
-
-    button.disabled = true;
-    createRoom(name)
-      .then((roomId) => {
-        roomOutput.value = roomId;
-        button.style.display = 'none';
-      })
-      .catch(() => {
-        button.disabled = false;
-      })
-  }
-}
-
-function createHost(gameContainer, previousView) {
-  const updateInterface = update(gameContainer);
+function createHost(gameContainer) {
+  const updateInterface = update(gameContainer, clear);
 
   const fragment = document.createDocumentFragment();
 
@@ -34,20 +15,34 @@ function createHost(gameContainer, previousView) {
   nameInput.classList.add('input');
   nameInput.placeholder = 'Имя пользователя';
 
-  const roomOutput = document.createElement('input');
-  roomOutput.classList.add('input');
-  roomOutput.placeholder = 'Номер комнаты';
-  roomOutput.disabled = true;
-
   const buttonCreate = createButton('Создать комнату');
-  const createListener = onCreating(nameInput, roomOutput, buttonCreate);
+  const createListener = () => {
+    const name = nameInput.value.trim();
+
+    if (!name) {
+      console.log('Error: Name cannot be empty');
+      return;
+    }
+
+    buttonCreate.disabled = true;
+    createRoom(name)
+      .then((roomId) => {
+        updateInterface(
+          createWatingRoom(gameContainer, {
+            roomId,
+            isHost: true,
+          })
+        );
+      })
+      .catch(() => {
+        buttonCreate.disabled = false;
+      });
+  }
   buttonCreate.addEventListener('click', createListener);
 
   const back = () => {
-    // TODO: destroy room
-    buttonCreate.removeEventListener('click', createListener);
     updateInterface(
-      previousView(gameContainer)
+      createMenu(gameContainer)
     );
   }
   const buttonBack = createButton('Назад');
@@ -55,8 +50,12 @@ function createHost(gameContainer, previousView) {
 
   fragment.appendChild(buttonBack);
   fragment.appendChild(nameInput);
-  fragment.appendChild(roomOutput);
   fragment.appendChild(buttonCreate);
+
+  function clear() {
+    buttonCreate.removeEventListener('click', createListener);
+    buttonBack.removeEventListener('click', back);
+  }
 
   return fragment;
 }
