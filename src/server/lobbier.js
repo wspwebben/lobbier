@@ -1,6 +1,6 @@
 const EVENTS = require('../common/events.js');
 
-const Game = require('../games/no_tnanks/game');
+const Game = require('../games/no_thanks');
 
 const players = new Map()
 

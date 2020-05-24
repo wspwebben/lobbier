@@ -3,7 +3,7 @@
 const TOTAL_MONEY = 55;
 const MAX_MONEY = 11;
 
-const MIN_PLAYERS = 1;
+const MIN_PLAYERS = 3;
 const MAX_PLAYERS = 7;
 
 const REMOVED_CARDS = 9;
@@ -228,7 +228,7 @@ function * createGame (playersData) {
       place: index + 1
     }));
 
-    console.log(scoredPlayers)
+
   return {
     players: scoredPlayers
   }
@@ -247,6 +247,7 @@ class Game {
     this.bindEvents();
 
     this.game = createGame(players);
+    // initialize game
     const { value: state } = this.game.next();
     this.sendGameState(state);
   }
@@ -254,22 +255,20 @@ class Game {
   bindEvents() {
     this.sockets.forEach(socket => {
       socket.on(EVENTS.GAME, this.onMessage);
-    })
+    });
   }
 
   unbindEvents() {
     this.sockets.forEach(socket => {
       socket.off(EVENTS.GAME, this.onMessage);
-    })
+    });
   }
 
   isCurrentPlayer(id) {
     return true;
   }
 
-  onMessage({ id, move }) {
-    console.log(move);
-    // if (!this.isPlaying) return;
+  onMessage({ id, move }) {    
     if (![MOVE_DECLINE, MOVE_TAKE].includes(move)) return;
     if (!this.isCurrentPlayer(id)) return
     
@@ -280,7 +279,6 @@ class Game {
     const { value: state, done } = this.game.next(move);
 
     if (done) {
-      // console.log(state);
       this.sendPlayersScore(state.players);
       return;
     }
@@ -291,13 +289,12 @@ class Game {
   sendGameState(state) {
     this.sockets.forEach(socket => {
       socket.emit(EVENTS.GAME, state);
-    })
+    });
   }
 
   sendPlayersScore(players) {
     this.isPlaying = false;
     this.unbindEvents();
-    // this.socket.emit('game', players)
   }
 }
 
