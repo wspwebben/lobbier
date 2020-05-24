@@ -22,6 +22,6 @@ const io = socketio(httpServer);
 
 const lobbier = require('./server/lobbier.js')
 
-io.sockets.on('connection', socket => {
+io.on('connection', socket => {
   lobbier(io, socket);
 })

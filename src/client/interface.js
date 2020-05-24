@@ -1,13 +1,13 @@
-import { createMenu } from './interface/index';
+import test from './interface/views/test';
 import update from './interface/update';
 
 function createInterface(root) {
   const gameContainer = document.createElement('div');
   gameContainer.classList.add('container');
 
-  const updateInterface = update(gameContainer);
+  const updateInterface = update(gameContainer, () => {});
   updateInterface(
-    createMenu(gameContainer)
+    test(gameContainer)
   );
   root.appendChild(gameContainer);
 }
