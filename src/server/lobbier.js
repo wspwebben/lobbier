@@ -24,9 +24,10 @@ function lobbier(io, socket) {
 
   socket.on('game-start', () => {
     io.emit('game-start');
-    console.log([...players.entries()])
+    
+    const playersData = [...players.keys()].map(name => ({ name }));
 
-    const game = new Game([...players.values()], [...players.keys()]);
+    const game = new Game([...players.values()], playersData);
   });
 
   socket.on('disconnect', () => {
@@ -36,11 +37,6 @@ function lobbier(io, socket) {
       io.emit('enough-players', false);
     }
   })
-  // const players = mock.players(3);
-
-  // socket.on(EVENTS.ROOM.CREATE, createRoom);
-  // socket.on(EVENTS.ROOM.JOIN, joinRoom(io));
-  // socket.on(EVENTS.ROOM.LEAVE, leaveRoom(io));
 }
 
 module.exports = lobbier;

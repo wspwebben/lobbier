@@ -2,7 +2,7 @@ import socket from '../../api/socket';
 
 function decline() {
   socket.emit('game', {
-    // id: 
+    id: socket.id,
     move: 'decline',
   });
 }

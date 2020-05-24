@@ -25,6 +25,8 @@ socket.on('game-start', () => {
   startButton.remove();
   takeButton.disabled = false;
   declineButton.disabled = false;
+
+  console.log(socket.id);
 })
 
 socket.on('game', (data) => {
