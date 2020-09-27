@@ -1,1 +1,0 @@
-export const API_WAITING_TIME = 2000;

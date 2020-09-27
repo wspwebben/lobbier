@@ -3,29 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "serve": "node src/server.js",
-    "demon": "nodemon src/server.js",
-    "build": "rollup --config",
-    "watch": "rollup --config --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wspwebben/lobbier.git"
-  },
+  "scripts": {},
+  "repository": "git+https://github.com/wspwebben/lobbier.git",
   "author": "webben",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wspwebben/lobbier/issues"
   },
   "homepage": "https://github.com/wspwebben/lobbier#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^2.3.0"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.1.0",
-    "nodemon": "^2.0.3",
-    "rollup": "^2.8.2"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
