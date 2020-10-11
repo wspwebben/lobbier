@@ -8,9 +8,9 @@ const port = process.env.port || 3000;
 
 const server = createServer(app);
 
-app.use(express.static(path.resolve('./src/client')))
+app.use(express.static(path.resolve('./dist')))
 app.get('/', (req: express.Request, res: express.Response) => {
-  res.sendFile(path.resolve('./src/client/index.html'));
+  res.sendFile(path.resolve('./dist/index.html'));
 });
 
 const io = socketio(server);
