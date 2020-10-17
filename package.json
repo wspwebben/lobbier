@@ -20,10 +20,14 @@
   "homepage": "https://github.com/wspwebben/lobbier#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "vue": "^2.6.12",
+    "vue-hot-reload-api": "^2.3.4",
     "websocket-game-lobby": "^4.0.0",
     "websocket-game-lobby-client": "^1.0.1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "@vue/component-compiler-utils": "^3.2.0",
+    "parcel-bundler": "^1.12.4",
+    "vue-template-compiler": "^2.6.12"
   }
 }

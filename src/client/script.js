@@ -1,3 +1,5 @@
+import Vue from 'vue';
+import App from './App.vue';
 import { WebSocketGameLobbyClient } from 'websocket-game-lobby-client';
 
 const gameLobby = new WebSocketGameLobbyClient({
@@ -8,5 +10,6 @@ gameLobby.addEventListener('message', ({ data }) => {
     console.log(JSON.parse(data));
 });
 
-const buttonCreateGame = document.querySelector('button');
-buttonCreateGame.addEventListener('click', () => gameLobby.send('create'));
+new Vue({
+    render: createElement => createElement(App),
+}).$mount('#app');
