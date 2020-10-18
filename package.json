@@ -4,16 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "parcel src/client/index.html",
+    "serve": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wspwebben/lobbier.git"
   },
-  "author": "webben",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wspwebben/lobbier/issues"
   },
-  "homepage": "https://github.com/wspwebben/lobbier#readme"
+  "homepage": "https://github.com/wspwebben/lobbier#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "vue": "^2.6.12",
+    "vue-hot-reload-api": "^2.3.4",
+    "websocket-game-lobby": "^4.0.0",
+    "websocket-game-lobby-client": "^1.0.1"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.2.0",
+    "parcel-bundler": "^1.12.4",
+    "vue-template-compiler": "^2.6.12"
+  }
 }
