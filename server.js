@@ -26,10 +26,15 @@ const gameLobby = new WebSocketGameLobbyServer({
 
 gameLobby.addEventListener(
     'create',
-    async ({ gameId, playerId }, datastore) => {
-        await datastore.editGame(gameId, async game => {
-            game.custom.color = 'purple';
-            return game;
-        });
+    async (ctx, datastore) => {
+        console.log(ctx)
+        
+    }
+);
+
+gameLobby.addEventListener(
+    'join',
+    async (ctx, datastore) => {
+        console.log(ctx);
     }
 );
